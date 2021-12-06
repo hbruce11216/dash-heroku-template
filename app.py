@@ -212,6 +212,11 @@ app.layout = html.Div(
         
     ]
 )
+@app.callback(Output(component_id="dash_bar",component_property="figure"), 
+             [Input(component_id='x-axis',component_property="value"),
+              Input(component_id='colors',component_property="value")])
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=8050, host='0.0.0.0')
