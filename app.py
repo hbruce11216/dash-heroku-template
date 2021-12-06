@@ -11,8 +11,23 @@ from dash.dependencies import Input, Output
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+import plotly.figure_factory as ff
+from dash.dependencies import Input, Output
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.io as pio
+pio.renderers.default = "vscode"
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+import warnings
+warnings.filterwarnings('ignore')
+
+
 # For this lab, we will be working with the 2019 General Social Survey one last time.
-%%capture
 gss = pd.read_csv("https://github.com/jkropko/DS-6001/raw/master/localdata/gss2018.csv",
                  encoding='cp1252', na_values=['IAP','IAP,DK,NA,uncodeable', 'NOT SURE',
                                                'DK', 'IAP, DK, NA, uncodeable', '.a', "CAN'T CHOOSE"])
@@ -41,8 +56,11 @@ gss_clean.age = gss_clean.age.astype('float')
 
 
 # Markdown Text -- Summary
-markdown_text = "WILL WRITE THIS LATER"
+markdown_text = """
+The [General Social Survey] (http://www.gss.norc.org/About-The-GSS) (GSS) is a national survey that focuses on explaining and monitoring trends in opinions, attitudes, and behaviors of American adults. Conducted across the USA since 1972, the GSS is designed to enhance our understanding of opinions and how they might predict human behaviors.
 
+As discussed in this article by the [Pew Research Center] (https://www.pewresearch.org/fact-tank/2021/05/25/gender-pay-gap-facts/), the wage gap of ~$0.17 in median earnings is effectively saying that women must work an additional 42 days per year to equal the pay of men. Despite what we saw throughout the course in our explorations of the wage gap, the Pew Research Center explains these trends away by arguing that the wage gap is improving when considering that there are differences between the age groups for women.
+"""
 
 
 # Problem 2
@@ -163,6 +181,8 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 # To create the dashboard app using jupyterdash, we write instead:
 # app = JupyterDash(__name__, external_stylesheets=external_stylesheets)
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+server = app.server
 
 app.layout = html.Div(
     [
